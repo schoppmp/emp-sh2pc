@@ -14,23 +14,26 @@ INCLUDE_DIRECTORIES(${EMP-OT_INCLUDE_DIRS})
 FIND_PACKAGE(OpenSSL)
 INCLUDE_DIRECTORIES(${OPENSSL_INCLUDE_DIR})
 
+FIND_PACKAGE(relic)
+INCLUDE_DIRECTORIES(${RELIC_INCLUDE_DIR})
+
 set (CMAKE_C_FLAGS "-pthread -Wall -march=native -O3 -maes")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pg -ggdb")
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x")
 
 macro (add_test _name)
 	add_executable("test_${_name}" "test/${_name}.cpp" ${basics})
-	target_link_libraries("test_${_name}"  relic  ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
+	target_link_libraries("test_${_name}" ${RELIC_LIBRARIES} ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
 endmacro()
 
 macro (add_bench _name)
 	add_executable("bench_${_name}" "bench/${_name}.cpp" ${basics})
-	target_link_libraries("bench_${_name}"  relic  ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
+	target_link_libraries("bench_${_name}" ${RELIC_LIBRARIES} ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
 endmacro()
 
 macro (add_example _name)
 	add_executable("example_${_name}" "example/${_name}.cpp" ${basics})
-	target_link_libraries("example_${_name}"  relic  ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
+	target_link_libraries("example_${_name}" ${RELIC_LIBRARIES} ${OPENSSL_LIBRARIES} gmp ${EMP-TOOL_LIBRARIES}) 
 endmacro()
 
 
